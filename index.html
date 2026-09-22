@@ -74,6 +74,47 @@
     .character-grid video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
     @media (max-width: 760px) { .chapter .aigc-content-title { letter-spacing: .11em; line-height: 1.12; } .virtual-ip-title { font-size: clamp(1.75rem, 8vw, 2.45rem); line-height: 1.42; letter-spacing: .09em; } .character-grid { gap: 1.05rem; } .character-grid figure { padding: .3rem; border-width: 3px; } }
   </style>
+  <style>
+    /* Keep / Account Strategy：双账号内容路径。数据和图片由 accountsData 渲染，便于后续替换。 */
+    .account-strategy { background: #fff; }
+    .strategy-intro { max-width: 850px; margin: 0 0 clamp(3rem, 6vw, 5.4rem); font-size: clamp(1.02rem, 1.4vw, 1.34rem); font-weight: 800; line-height: 1.85; letter-spacing: .025em; }
+    .account-paths { display: grid; grid-template-columns: 1fr; align-items: stretch; border: var(--line); }
+    .account-card { display: grid; gap: clamp(1.4rem, 2.6vw, 2.6rem); padding: clamp(1.5rem, 3.7vw, 4rem); background: #fff; }
+    .account-card + .account-card { border-top: var(--line); }
+    .account-card.is-primary, .account-card.is-secondary { grid-template-columns: minmax(18rem, .72fr) minmax(0, 1.28fr); align-items: start; }
+    .account-copy { min-width: 0; }
+    .account-number { margin: 0 0 .7rem; color: var(--blue); font-size: .76rem; font-weight: 900; letter-spacing: .14em; }
+    .account-name { margin: 0; line-height: 1; letter-spacing: 0; white-space: nowrap; }
+    .account-card.is-primary .account-name { font-size: clamp(2.2rem, 3.2vw, 4rem); }
+    .account-card.is-secondary .account-name { font-size: clamp(2rem, 2.6vw, 3rem); }
+    .account-role { margin: 1.45rem 0 0; color: var(--blue); font-size: clamp(1rem, 1.45vw, 1.36rem); font-weight: 900; line-height: 1.35; }
+    .account-description { margin: 1rem 0 0; font-size: clamp(.95rem, 1.2vw, 1.14rem); font-weight: 700; line-height: 1.75; }
+    .account-shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; align-items: start; }
+    .account-card.is-primary .account-shots { grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(100%, 26rem); justify-self: center; gap: .8rem; }
+    .phone-shot { position: relative; margin: 0; align-self: start; border: 4px solid var(--ink); background: var(--ink); padding: .55rem; box-shadow: 8px 8px 0 var(--blue); transform: rotate(-1.7deg); }
+    .phone-shot:nth-child(even) { transform: rotate(1.5deg); }
+    .phone-shot img { display: block; width: 100%; aspect-ratio: 1179 / 2301; object-fit: cover; object-position: top; }
+    .account-card.is-secondary .account-shots { grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(100%, 22rem); justify-self: center; }
+    .account-card.is-secondary .phone-shot { margin-top: .65rem; box-shadow: 7px 7px 0 var(--blue); }
+    .content-tags { display: flex; flex-wrap: wrap; gap: .55rem; margin: 1.45rem 0 0; }
+    .content-tags span { border: 2px solid var(--ink); padding: .45rem .68rem; font-size: .78rem; font-weight: 900; line-height: 1.2; }
+    .account-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 1.85rem; border: 3px solid var(--ink); background: var(--ink); }
+    .account-stat { min-height: 7.35rem; padding: 1rem 1.15rem; border-right: 2px solid var(--pink); color: #fff; }
+    .account-stat:last-child { border-right: 0; }
+    .account-stat b { display: block; color: var(--pink); font-family: Impact, "Arial Black", sans-serif; font-size: clamp(1.7rem, 2.15vw, 2.75rem); font-weight: 900; line-height: .95; letter-spacing: .015em; white-space: nowrap; }
+    .account-stat small { display: block; margin-top: .6rem; font-size: .72rem; font-weight: 900; line-height: 1.42; }
+    .relationship { margin-top: clamp(3.5rem, 8vw, 7rem); padding-top: clamp(2rem, 4vw, 3.5rem); border-top: var(--line); }
+    .relationship h3 { margin: 0; font-size: clamp(1.6rem, 3vw, 3.1rem); line-height: 1; }
+    .relationship-map { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 950px; margin: 2.3rem auto 0; text-align: center; }
+    .relationship-ip { grid-column: 1 / -1; justify-self: center; width: min(100%, 19rem); margin-bottom: 2rem; padding: 1rem; border: var(--line); background: var(--blue); color: #fff; font-family: Impact, "Arial Black", sans-serif; font-size: 1.55rem; letter-spacing: .04em; }
+    .relationship-branch { position: relative; padding: 1.5rem clamp(1rem, 3vw, 3rem) 0; border-top: var(--line); }
+    .relationship-branch + .relationship-branch { border-left: var(--line); }
+    .relationship-branch b { display: block; font-size: clamp(1.1rem, 2vw, 1.65rem); }
+    .relationship-branch span { display: block; margin-top: .8rem; font-size: .9rem; font-weight: 800; line-height: 1.75; }
+    .relationship-summary { max-width: 690px; margin: 2.5rem 0 0; font-size: clamp(1rem, 1.4vw, 1.25rem); font-weight: 900; line-height: 1.75; }
+    @media (max-width: 880px) { .account-paths { grid-template-columns: 1fr; } .account-card + .account-card { border-top: var(--line); border-left: 0; } .account-card.is-secondary { grid-template-columns: minmax(10rem, .65fr) 1fr; align-items: start; } .account-card.is-secondary .account-shots { grid-template-columns: repeat(2, minmax(0, 1fr)); } .account-card.is-secondary .phone-shot { margin: 0; } }
+    @media (max-width: 600px) { .strategy-intro { margin-bottom: 2.7rem; } .account-card.is-primary, .account-card.is-secondary { grid-template-columns: 1fr; } .account-card { padding: 1.5rem; } .account-shots { width: min(86vw, 25rem); justify-self: center; } .account-card.is-secondary .account-shots { grid-template-columns: repeat(2, minmax(0, 1fr)); } .phone-shot { width: auto; } .account-card.is-secondary .phone-shot { width: auto; } .account-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .account-stat { min-height: 6.2rem; padding: .9rem; border-bottom: 2px solid var(--pink); } .account-stat:nth-child(2) { border-right: 0; } .account-stat:last-child { border-bottom: 0; } .relationship-map { grid-template-columns: 1fr; } .relationship-branch + .relationship-branch { border-top: var(--line); border-left: 0; } }
+  </style>
 </head>
 <body>
   <nav class="nav"><a class="mark impact" href="#home">HYX ✦</a><div class="nav-links"><a href="#work">精选项目</a><a href="#lab">AI 实验室</a><a href="#about">关于我</a></div></nav>
@@ -94,12 +135,54 @@
     <section id="work" class="section featured"><p class="eyebrow">01 / 核心案例</p><div class="feature-grid"><div><h2 class="feature-title"><span class="keep-word">KEEP</span><span class="case-word">实习案例</span></h2><p class="feature-meta">AIGC 内容运营 × AI 系统搭建<br>虚拟健身教练 IP 账号运营 · 内容运营 Agent 0→1 搭建</p></div><a class="feature-role-card" href="#keep" aria-label="查看 Keep 实习案例详情"><p class="role-label">岗位信息</p><p class="role-company">KEEP<br>AIGC 运营实习生</p><p class="role-time">2026.07 至今</p><div class="role-divider" aria-hidden="true"></div><div class="role-directions"><span><b>01</b><em>虚拟健身教练 IP 账号运营</em></span><span><b>02</b><em>内部内容运营 Agent 0→1 搭建</em></span></div></a></div></section>
     <section id="keep" class="section case-head"><p class="eyebrow">KEEP INTERNSHIP / 2026</p><h2 class="impact title">BUILDING AN AIGC<br>CONTENT &amp; AGENT SYSTEM</h2><div class="facts"><div><b>ROLE</b><span>AIGC / AI Content / Agent Intern</span></div><div><b>SCOPE</b><span>AIGC Content · IP Development · Account Operation · Content Strategy · Brand Collaboration · Workflow Design</span></div><div><b>OBJECTIVE</b><span>探索 AIGC 在内容生产、IP 孵化、账号运营及内部内容效率中的应用。</span></div></div><div class="flow"><span>CONTENT STRATEGY</span><i>↓</i><span>AIGC PRODUCTION</span><i>↓</i><span>ACCOUNT OPERATION</span><i>↓</i><span>DATA FEEDBACK</span><i>↓</i><span>AI AGENT / WORKFLOW</span><i>↓</i><span>SCALABLE CONTENT SYSTEM</span></div></section>
     <section class="section pink"><div class="chapter"><div><p class="eyebrow" style="color:#000">CHAPTER 01</p><h2 class="impact aigc-content-title">AIGC<br>CONTENT<br>&amp; IP</h2></div><div><h3 class="virtual-ip-title"><span>虚拟IP运营：</span><span>谢幺幺</span></h3><p class="matrix-description">围绕“谢幺幺”搭建双账号 AIGC 内容矩阵：以“谢幺幺爱跳操”通过健身游戏、燃脂操等利他型内容实现高频稳定产出与用户拉新；以“谢幺幺谢邀”塑造更具人格感的 Q 版 IP，通过情绪与日常内容建立用户情感连接，并探索联名、周边、盲盒等商业化可能。同时将爆款内容拆解为可复用的生产 SOP，形成从内容生产、账号增长到 IP 资产沉淀的完整运营链路。</p></div></div><div class="character-grid"><figure style="--r:-2deg"><video autoplay muted loop playsinline preload="metadata" aria-label="谢幺幺 AIGC 视频一"><source src="assets/xie-yaoyao/xie-yaoyao.mp4" type="video/mp4" /></video></figure><figure style="--r:2deg"><video autoplay muted loop playsinline preload="metadata" aria-label="谢幺幺 AIGC 视频二"><source src="assets/xie-yaoyao/yaoyao.mp4" type="video/mp4" /></video></figure><figure class="is-square" style="--r:-1deg"><video autoplay muted loop playsinline preload="metadata" aria-label="谢幺幺 AIGC 视频三"><source src="assets/xie-yaoyao/q-yao-visual.mp4" type="video/mp4" /></video></figure><figure style="--r:3deg"><video autoplay muted loop playsinline preload="metadata" aria-label="谢幺幺 AIGC 视频四"><source src="assets/xie-yaoyao/q-yao.mp4" type="video/mp4" /></video></figure></div></section>
-    <section class="section"><p class="eyebrow">ACCOUNT STRATEGY</p><h2 class="impact title">ONE CHARACTER,<br>TWO CONTENT ENGINES</h2><div class="engines"><article class="engine"><p class="eyebrow">ACCOUNT 01</p><h3 class="impact">谢幺幺<br>爱跳操</h3><b>Growth &amp; Content Commercialization</b><ul><li>K-pop · 燃脂操 · 拉伸 · 运动 · 舞蹈</li><li>实用价值 + 娱乐价值</li><li>内容 → 角色：先喜欢内容，再认识谢幺幺</li><li>稳定内容输出、扩大触达、承接商业合作</li></ul></article><article class="engine"><p class="eyebrow">ACCOUNT 02</p><h3 class="impact">谢幺幺<br>谢邀</h3><b>Character &amp; IP Development</b><ul><li>Q版日常 · 职场 · 社交 · 情绪 · 故事</li><li>情绪价值 + 陪伴价值</li><li>角色 → 内容：因为喜欢谢幺幺而持续消费内容</li><li>建立人格、角色认知与粉丝黏性</li></ul></article></div></section>
-    <section class="section"><p class="eyebrow">PERFORMANCE / PROVIDED FIGURES</p><h2 class="impact title">ACCOUNT GROWTH</h2><div class="stats"><div class="stat"><b class="impact">23.6W+</b><small>DOUYIN / 粉丝<br>谢幺幺爱跳操</small></div><div class="stat"><b class="impact">166.1W+</b><small>DOUYIN / 获赞<br>谢幺幺爱跳操</small></div><div class="stat"><b class="impact">82+</b><small>DOUYIN / 作品<br>谢幺幺爱跳操</small></div><div class="stat"><b class="impact">7.3W+</b><small>XIAOHONGSHU / 粉丝<br>40.3W+ 获赞与收藏</small></div></div><p class="note">数据按您提供的数值呈现，建议发布前以最新后台数据复核。Top content / popular series 可补入：懒人瘦身、K-pop 燃脂操、瘦肚子、瘦手臂、拉伸与合集内容。</p></section>
+    <section id="account-strategy" class="section account-strategy" aria-label="谢幺幺虚拟 IP 双账号内容矩阵">
+      <p class="eyebrow">ACCOUNT STRATEGY</p>
+      <p class="strategy-intro">一个谢幺幺，两种内容路径，共同构建可持续增长的虚拟 IP。<br>在 Keep 实习期间，负责「谢幺幺」虚拟 IP 的 AIGC 内容运营，围绕「谢幺幺爱跳操」与「谢幺幺谢邀」打造双账号内容矩阵。前者通过利他型健身内容扩大用户触达，后者通过 Q 版角色内容强化人格认知，逐步探索虚拟 IP 的长期价值。</p>
+      <div id="accounts-data" class="account-paths" aria-label="谢幺幺双账号内容矩阵"></div>
+      <div class="relationship">
+        <p class="eyebrow">TWO ACCOUNTS, ONE IP</p>
+        <h3 class="impact">双账号如何共同建设谢幺幺 IP</h3>
+        <div class="relationship-map" aria-label="双账号关系示意"><div class="relationship-ip">谢幺幺 IP</div><div class="relationship-branch"><b>谢幺幺爱跳操</b><span>内容增长<br>用户触达<br>规模扩大</span></div><div class="relationship-branch"><b>谢幺幺谢邀</b><span>IP 建设<br>人格认知<br>角色沉淀</span></div></div>
+        <p class="relationship-summary">一个账号扩大用户规模，一个账号沉淀角色价值，共同推动谢幺幺从内容账号向虚拟 IP 发展。</p>
+      </div>
+    </section>
     <section class="section"><p class="eyebrow">NATIVE AIGC BRANDED CONTENT</p><h2 class="impact title">BRAND → SCENARIO<br>→ CONTENT</h2><p style="max-width:700px;font-weight:bold;font-size:1.1rem;line-height:1.6">将品牌功能转译为用户愿意主动消费的内容场景：不是“植入一支广告”，而是让产品能力进入内容本身。</p><div class="brand-flow"><div>BRAND</div><div>USER SCENARIO</div><div>AIGC CONTENT</div><div>NATIVE INTEGRATION</div></div><div class="other" style="margin-top:25px"><article class="project"><small>JUST DANCE / 舞力全开</small><h3 class="impact">DANCE AS<br>THE CONTENT</h3><p>通过同款舞蹈把品牌／游戏体验转化为视频内容。</p></article><article class="project"><small>NETEASE CLOUD MUSIC / 网易云音乐</small><h3 class="impact">MUSIC IN<br>THE SCENE</h3><p>在 K-pop、听音乐与 MV 场景中展示产品功能。</p></article><article class="project"><small>KEEP</small><h3 class="impact">PRODUCT IN<br>MOVEMENT</h3><p>通过运动、口播、数据与功能演示呈现产品使用情境。</p></article><article class="project"><small>FUTURE DIRECTION</small><h3 class="impact">IP ROADMAP</h3><p>下列为未来商业化探索，而非已实现成果。</p><div class="roadmap"><span>CONTENT</span><span>AFFINITY</span><span>IP ASSET</span><span>LICENSING</span><span>COLLAB</span><span>MERCH</span></div></article></div></section>
     <section class="section system"><p class="eyebrow">CHAPTER 02 / CREATIVE → SYSTEM</p><h2 class="impact title">FROM CREATING CONTENT<br>TO BUILDING THE SYSTEM</h2><p style="font-weight:bold;max-width:720px;line-height:1.6;font-size:1.1rem">高频 AIGC 内容生产中，重复工作会被抽象成 Agent、Workflow、Automation 与 Tool Chain。这里不把未验证的效率提升写成数字，而将可复用性与标准化作为待验证的系统目标。</p><div class="architecture"><div class="node blue">USER INPUT<br><small>Text · Image · Link · Data · Request</small></div><div class="arrow">→</div><div class="node">INTENT ANALYSIS<br>PLANNER</div><div class="node">MEMORY · KNOWLEDGE<br>PROMPT · TOOLS</div><div class="arrow">→</div><div class="node blue">MODEL<br>TOOL CALL · EVALUATION</div><div class="node">SEARCH · DATA<br>CONTENT · KNOWLEDGE</div><div class="arrow">→</div><div class="node">OUTPUT<br>REUSABLE WORKFLOW</div></div><div class="agent-cards"><article class="agent"><strong>01 / PROBLEM → OUTPUT</strong><h3>CONTENT PRODUCTION AGENT</h3><p>展示 Input、规划、工具调用与成品输出。</p><div class="todo">TODO：补入真实 Agent 名称、输入、截图与测试记录。</div></article><article class="agent"><strong>02 / WORKFLOW</strong><h3>ACCOUNT OPERATION WORKFLOW</h3><p>将发布、标题、平台适配、复盘等高频步骤结构化。</p><div class="todo">TODO：补入真实工具链与可公开流程。</div></article><article class="agent"><strong>03 / IMPACT</strong><h3>EVALUATION &amp; ITERATION</h3><p>定性目标：Reduce Repetitive Tasks / Improve Consistency / Reusable Workflow。</p><div class="todo">TODO：仅在取得真实前后数据后再加入时长或效率对比。</div></article></div></section>
     <section id="lab" class="section"><p class="eyebrow">AI LAB / EXPERIMENTS &amp; EXPLORATIONS</p><h2 class="impact title">AI VISUAL<br>EXPERIMENTS</h2><div class="lab-grid"><div><video controls preload="metadata" src="https://fuyixixian-web.github.io/portfolio/experiments/AI_%E5%88%9B%E6%84%8F%E4%BA%A7%E5%93%81%E5%B1%95%E7%A4%BA.mp4"></video><p>AI 创意产品展示</p></div><div><video controls preload="metadata" src="https://fuyixixian-web.github.io/portfolio/experiments/AI_ootd%E5%B1%95%E7%A4%BA.mp4"></video><p>AI OOTD 展示</p></div><div><div style="height:calc(100% - 50px);min-height:340px;border:var(--line);display:grid;place-items:center;background:var(--blue);color:#fff;text-align:center;padding:20px;font:2.4rem/1 Impact">MORE EXISTING<br>AI WORKS<br>TO CURATE</div><p>TODO / 产品 · 角色 · 数字人 · 时尚 · 视频</p></div></div></section>
     <section class="section"><p class="eyebrow">SELECTED PROJECTS / OTHER WORKS</p><h2 class="impact title">FILM &amp; VISUAL<br>STORYTELLING</h2><div class="other"><article class="project"><small>微电影</small><h3 class="impact">南昌治愈日记</h3><a href="https://fuyixixian-web.github.io/portfolio/">VIEW ON ORIGINAL PORTFOLIO →</a></article><article class="project"><small>微电影</small><h3 class="impact">我的想象力都去哪了</h3><a href="https://fuyixixian-web.github.io/portfolio/">VIEW ON ORIGINAL PORTFOLIO →</a></article><article class="project"><small>电影解析</small><h3 class="impact">少年的你</h3><a href="https://fuyixixian-web.github.io/portfolio/">VIEW ON ORIGINAL PORTFOLIO →</a></article><article class="project"><small>新闻报道</small><h3 class="impact">活动报道</h3><a href="https://fuyixixian-web.github.io/portfolio/">VIEW ON ORIGINAL PORTFOLIO →</a></article></div></section>
     <section id="about" class="section about"><div><p class="eyebrow" style="color:white">ABOUT ME</p><h2 class="impact title">A CREATIVE<br>FUSION OF<br>VISUALS &amp; AI.</h2><p>从视觉叙事出发，探索 AIGC 内容、角色 IP、内容策略与 AI Workflow 的交点。</p></div><div><h3>SKILLS</h3><p>AIGC · AI Video · AI Image · Agent · Workflow · Content Strategy · Account Operation · Film · Editing · Design</p><h3 style="margin-top:34px">TOOLKIT</h3><p>TODO：仅补入您实际使用且希望公开的工具。</p><h3 style="margin-top:34px">CONTACT</h3><p>TODO：补入可公开的 Email / Resume / Social links。</p></div></section>
   </main><footer class="footer"><p class="impact">HU YUXUAN / 福以仙 ✦</p><p>PORTFOLIO REBUILD DRAFT — ORIGINAL SITE REMAINS UNCHANGED</p></footer>
+  <script>
+    // 单一数据源：后续替换账号图片、统计数字或文案时，只需修改这里。
+    const accountsData = [
+      {
+        id: '01', name: '谢幺幺爱跳操', role: '利他型健身内容账号 · 内容增长路径',
+        description: '通过 K-pop、燃脂操、拉伸等运动内容，为用户提供低门槛、有趣的健身体验，实现稳定内容输出与用户增长。',
+        tags: ['K-pop 舞蹈', '燃脂操', '拉伸塑形', '漫剧人设内容'],
+        stats: [['30W+', '全网粉丝量'], ['4W+', '实习期间新增粉丝'], ['22条', '产出视频'], ['620W+', '累计播放量']],
+        images: [
+          { src: 'assets/accounts/xie-yaoyao-love-dance-douyin.jpeg', alt: '谢幺幺爱跳操抖音账号主页截图' },
+          { src: 'assets/accounts/xie-yaoyao-love-dance-xiaohongshu.jpeg', alt: '谢幺幺爱跳操小红书账号主页截图' }
+        ], primary: true
+      },
+      {
+        id: '02', name: '谢幺幺谢邀', role: '角色型内容账号 · IP 建设路径',
+        description: '通过 Q 版角色、日常生活、情绪内容建立谢幺幺人格认知，探索虚拟 IP 长期运营路径。',
+        tags: ['Q版日常', '情绪表达', 'IP 人设构建'],
+        images: [
+          { src: 'assets/accounts/xie-yaoyao-thanks-douyin.jpeg', alt: '谢幺幺谢邀抖音账号主页截图' },
+          { src: 'assets/accounts/xie-yaoyao-thanks-xiaohongshu.jpeg', alt: '谢幺幺谢邀小红书账号主页截图' }
+        ], primary: false
+      }
+    ];
+
+    const accountMount = document.querySelector('#accounts-data');
+    const escapeHTML = (value) => String(value).replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' })[character]);
+    accountMount.innerHTML = accountsData.map((account) => {
+      const tags = account.tags.map((tag) => `<span>${escapeHTML(tag)}</span>`).join('');
+      const stats = account.stats ? `<div class="account-stats">${account.stats.map(([number, label]) => `<div class="account-stat"><b>${escapeHTML(number)}</b><small>${escapeHTML(label)}</small></div>`).join('')}</div>` : '';
+      const images = account.images.map((image) => `<figure class="phone-shot"><img src="${escapeHTML(image.src)}" alt="${escapeHTML(image.alt)}" loading="lazy"></figure>`).join('');
+      return `<article class="account-card ${account.primary ? 'is-primary' : 'is-secondary'}"><div class="account-shots">${images}</div><div class="account-copy"><p class="account-number">ACCOUNT ${escapeHTML(account.id)}</p><h3 class="impact account-name">${account.name}</h3><p class="account-role">${escapeHTML(account.role)}</p><p class="account-description">${escapeHTML(account.description)}</p><div class="content-tags">${tags}</div>${stats}</div></article>`;
+    }).join('');
+  </script>
 </body></html>
