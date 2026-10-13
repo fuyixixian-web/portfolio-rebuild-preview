@@ -85,6 +85,10 @@
     .account-copy { min-width: 0; }
     .account-number { margin: 0 0 .7rem; color: var(--blue); font-size: .76rem; font-weight: 900; letter-spacing: .14em; }
     .account-name { margin: 0; line-height: 1; letter-spacing: 0; white-space: nowrap; }
+    .account-head { display: flex; align-items: center; gap: 1.1rem; flex-wrap: wrap; }
+    .account-home { flex: 0 0 auto; display: inline-flex; align-items: center; gap: .45rem; padding: .55rem .95rem; border: 2px solid var(--ink); background: #fff; color: var(--ink); font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif; font-size: .82rem; font-weight: 900; letter-spacing: .04em; text-decoration: none; box-shadow: 4px 4px 0 var(--ink); transition: transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease; }
+    .account-home:hover, .account-home:focus-visible { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); background: var(--blue); color: #fff; }
+    .account-home svg { width: 1.05em; height: 1.05em; fill: currentColor; flex: 0 0 auto; }
     .account-card.is-primary .account-name { font-size: clamp(2.2rem, 3.2vw, 4rem); }
     .account-card.is-secondary .account-name { font-size: clamp(2rem, 2.6vw, 3rem); }
     .account-role { margin: 1.45rem 0 0; color: var(--blue); font-size: clamp(1rem, 1.45vw, 1.36rem); font-weight: 900; line-height: 1.35; }
@@ -160,6 +164,7 @@
         description: '通过 K-pop、燃脂操、拉伸等运动内容，为用户提供低门槛、有趣的健身体验，实现稳定内容输出与用户增长。',
         tags: ['K-pop 舞蹈', '燃脂操', '拉伸塑形', '漫剧人设内容'],
         stats: [['30W+', '全网粉丝量'], ['4W+', '实习期间新增粉丝'], ['22条', '产出视频'], ['620W+', '累计播放量']],
+        homeUrl: 'https://v.douyin.com/RJntnBxwTVU/',
         images: [
           { src: 'assets/accounts/xie-yaoyao-love-dance-douyin.jpeg', alt: '谢幺幺爱跳操抖音账号主页截图' },
           { src: 'assets/accounts/xie-yaoyao-love-dance-xiaohongshu.jpeg', alt: '谢幺幺爱跳操小红书账号主页截图' }
@@ -182,7 +187,8 @@
       const tags = account.tags.map((tag) => `<span>${escapeHTML(tag)}</span>`).join('');
       const stats = account.stats ? `<div class="account-stats">${account.stats.map(([number, label]) => `<div class="account-stat"><b>${escapeHTML(number)}</b><small>${escapeHTML(label)}</small></div>`).join('')}</div>` : '';
       const images = account.images.map((image) => `<figure class="phone-shot"><img src="${escapeHTML(image.src)}" alt="${escapeHTML(image.alt)}" loading="lazy"></figure>`).join('');
-      return `<article class="account-card ${account.primary ? 'is-primary' : 'is-secondary'}"><div class="account-shots">${images}</div><div class="account-copy"><p class="account-number">ACCOUNT ${escapeHTML(account.id)}</p><h3 class="impact account-name">${account.name}</h3><p class="account-role">${escapeHTML(account.role)}</p><p class="account-description">${escapeHTML(account.description)}</p><div class="content-tags">${tags}</div>${stats}</div></article>`;
+      const homeLink = account.homeUrl ? `<a class="account-home" href="${escapeHTML(account.homeUrl)}" target="_blank" rel="noopener noreferrer" aria-label="打开${escapeHTML(account.name)}主页"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.4l-9.3 9.3-1.4-1.4L17.6 5H14V3zM5 5h6v2H7v10h10v-4h2v6H5V5z"/></svg>打开主页</a>` : '';
+      return `<article class="account-card ${account.primary ? 'is-primary' : 'is-secondary'}"><div class="account-shots">${images}</div><div class="account-copy"><p class="account-number">ACCOUNT ${escapeHTML(account.id)}</p><div class="account-head"><h3 class="impact account-name">${account.name}</h3>${homeLink}</div><p class="account-role">${escapeHTML(account.role)}</p><p class="account-description">${escapeHTML(account.description)}</p><div class="content-tags">${tags}</div>${stats}</div></article>`;
     }).join('');
   </script>
 </body></html>
