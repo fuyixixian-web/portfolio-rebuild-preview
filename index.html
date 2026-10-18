@@ -38,6 +38,12 @@
     .zx-card-body { padding: .9rem 1rem 1.1rem; }
     .zx-card-body h4 { margin: 0 0 .4rem; font-family: Impact,"Arial Black",sans-serif; font-size: 1.05rem; letter-spacing: .02em; }
     .zx-card-body p { margin: 0; font-size: .78rem; font-weight: 700; line-height: 1.55; color: #333; }
+    .zx-card video { cursor: pointer; }
+    .video-modal { position: fixed; inset: 0; background: rgba(0,0,0,.92); z-index: 99; display: none; align-items: center; justify-content: center; padding: 4vh 4vw; }
+    .video-modal.is-open { display: flex; }
+    .video-modal video { max-height: 92vh; max-width: 92vw; width: auto; background: #000; box-shadow: 0 0 0 2px #fff; }
+    .video-modal .close-btn { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 2.2rem; line-height: 1; cursor: pointer; background: none; border: 0; font-weight: 900; }
+    .video-modal .hint { position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: #bbb; font-size: .8rem; font-weight: 700; letter-spacing: .08em; }
     @media (max-width: 880px) { .zx-grid { grid-template-columns: 1fr; } .zx-card { max-width: 22rem; margin: 0 auto; width: 100%; } }
     @media (max-width: 760px) { .feature-grid { gap: 2.25rem; } .feature-title { font-size: clamp(3.55rem, 16vw, 5.6rem); } .feature-meta { margin-top: 1.35rem; line-height: 1.75; } .feature-role-card { width: 100%; gap: 1rem; padding: 1.35rem; } }
   </style>
@@ -254,4 +260,18 @@
       return `<article class="account-card ${account.primary ? 'is-primary' : 'is-secondary'}"><div class="account-shots">${images}</div><div class="account-copy"><p class="account-number">ACCOUNT ${escapeHTML(account.id)}</p><div class="account-head"><h3 class="impact account-name">${account.name}</h3>${homeLink}</div><p class="account-role">${escapeHTML(account.role)}</p><p class="account-description">${escapeHTML(account.description)}</p><div class="content-tags">${tags}</div>${stats}</div></article>`;
     }).join('');
   </script>
+<div class="video-modal" id="videoModal" role="dialog" aria-modal="true"><button class="close-btn" id="videoModalClose" aria-label="关闭">×</button><video id="videoModalPlayer" controls playsinline></video><p class="hint">点击 × 或按 ESC 关闭</p></div>
+<script>
+(function(){
+  var modal = document.getElementById('videoModal');
+  var player = document.getElementById('videoModalPlayer');
+  var closeBtn = document.getElementById('videoModalClose');
+  function open(src){ player.src = src; player.muted = false; player.play().catch(function(){}); modal.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+  function close(){ player.pause(); player.removeAttribute('src'); player.load(); modal.classList.remove('is-open'); document.body.style.overflow = ''; }
+  document.querySelectorAll('.zx-card video, .work-card video').forEach(function(v){ v.addEventListener('click', function(){ open(v.currentSrc || v.src); }); });
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', function(e){ if(e.target === modal) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal.classList.contains('is-open')) close(); });
+})();
+</script>
 </body></html>
