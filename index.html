@@ -61,18 +61,19 @@
   <style>
     /* 首页沿用原作品集的拼贴构图；其余内容区保持现有结构。 */
     .nav { display: none; }
-    .hero-new { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; background: var(--paper); border-top: 8px solid var(--blue); }
-    .hero-photo { position: relative; overflow: hidden; }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
-    .hero-info { padding: 6vw; display: flex; flex-direction: column; justify-content: center; }
-    .hero-info .eyebrow { margin-bottom: .8rem; }
-    .hero-info h1 { margin: 0; font-family: Impact,"Arial Black",sans-serif; font-size: clamp(3.5rem, 7vw, 7rem); line-height: .9; color: var(--blue); letter-spacing: .02em; }
-    .hero-sub { margin: 1.2rem 0 0; font-size: clamp(1rem,1.3vw,1.3rem); font-weight: 900; color: var(--ink); }
-    .hero-meta { list-style: none; padding: 0; margin: 2.2rem 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 2rem; }
-    .hero-meta li { display: flex; flex-direction: column; padding-bottom: .6rem; border-bottom: 2px solid var(--ink); }
-    .hero-meta b { font-size: .7rem; color: var(--blue); letter-spacing: .14em; margin-bottom: .25rem; font-weight: 900; }
-    .hero-meta span { font-weight: 900; font-size: 1.02rem; }
-    @media (max-width: 760px) { .hero-new { grid-template-columns: 1fr; min-height: 0; } .hero-photo { height: 55vh; } .hero-info { padding: 2rem 6vw 3rem; } .hero-meta { grid-template-columns: 1fr; } } .home-title { top: 1.6rem; } .home-title h1 { font-size: clamp(2.75rem, 12.5vw, 4.3rem); } .home-title p { margin-top: .65rem; font-size: .77rem; letter-spacing: .07em; } .home-circle { top: 27vh; left: 3vw; width: 54vw; } .home-star { top: 23vh; left: 2vw; font-size: 4.6rem; } .home-photo-left { top: 33vh; left: 8vw; width: 39vw; padding: .35rem; } .home-bubble { top: 38vh; left: 3vw; width: 38vw; padding: .72rem .8rem; border-width: 2px; border-radius: .9rem; font-size: .69rem; line-height: 1.65; } .home-bubble::after { right: -.72rem; bottom: .75rem; width: 1rem; height: 1rem; border-width: 2px; } .home-blue-frame { top: 34vh; left: 51vw; width: 37vw; height: 54vw; } .home-photo-center { top: 35.5vh; left: 52vw; width: 33vw; } .home-actions { top: 20vh; right: 4vw; gap: .6rem; } .home-actions a { width: 8.8rem; height: 2.85rem; border-radius: .75rem; font-size: .92rem; gap: .45rem; } .home-about { right: 10vw; bottom: 8vh; width: 9.8rem; padding: .8rem; } .home-about h2 { font-size: 1.28rem; } .home-about-grid { gap: 1rem; font-size: .66rem; } .home-about p { font-size: .58rem; line-height: 1.45; } .home-barcode { right: 5vw; bottom: 3.7vh; width: 4rem; height: 2.2rem; } .home-barcode::after { font-size: .48rem; } .home-pager { bottom: 3.8vh; } }
+    .hero-new { background: var(--paper); border-top: 8px solid var(--blue); padding: 5vh 6vw 6vh; }
+    .hero-new > h1 { text-align: center; margin: 0 0 4vh; font-family: Impact,"Arial Black",sans-serif; font-size: clamp(3.5rem, 8vw, 8rem); line-height: .9; color: var(--blue); letter-spacing: .02em; }
+    .hero-new > .hero-sub-title { text-align: center; margin: -2.5vh 0 4vh; font-size: clamp(.9rem,1.2vw,1.15rem); font-weight: 900; letter-spacing: .14em; color: var(--ink); }
+    .hero-row { display: grid; grid-template-columns: minmax(260px, 380px) 1fr; gap: 4vw; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .hero-photo { overflow: hidden; box-shadow: 10px 10px 0 var(--blue); }
+    .hero-photo img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center 20%; display: block; }
+    .hero-info h2 { margin: 0 0 .4rem; font-family: Impact,"Arial Black",sans-serif; font-size: clamp(2rem, 3.5vw, 3.2rem); line-height: 1; color: var(--ink); letter-spacing: .02em; }
+    .hero-info .hero-tagline { margin: 0 0 1.8rem; font-size: clamp(.95rem,1.1vw,1.1rem); font-weight: 900; color: var(--blue); }
+    .hero-meta { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .9rem 2rem; }
+    .hero-meta li { display: flex; flex-direction: column; padding-bottom: .55rem; border-bottom: 2px solid var(--ink); }
+    .hero-meta b { font-size: .68rem; color: var(--blue); letter-spacing: .14em; margin-bottom: .25rem; font-weight: 900; }
+    .hero-meta span { font-weight: 900; font-size: 1rem; }
+    @media (max-width: 760px) { .hero-row { grid-template-columns: 1fr; } .hero-photo { max-width: 320px; margin: 0 auto; } .hero-meta { grid-template-columns: 1fr; } } .home-title { top: 1.6rem; } .home-title h1 { font-size: clamp(2.75rem, 12.5vw, 4.3rem); } .home-title p { margin-top: .65rem; font-size: .77rem; letter-spacing: .07em; } .home-circle { top: 27vh; left: 3vw; width: 54vw; } .home-star { top: 23vh; left: 2vw; font-size: 4.6rem; } .home-photo-left { top: 33vh; left: 8vw; width: 39vw; padding: .35rem; } .home-bubble { top: 38vh; left: 3vw; width: 38vw; padding: .72rem .8rem; border-width: 2px; border-radius: .9rem; font-size: .69rem; line-height: 1.65; } .home-bubble::after { right: -.72rem; bottom: .75rem; width: 1rem; height: 1rem; border-width: 2px; } .home-blue-frame { top: 34vh; left: 51vw; width: 37vw; height: 54vw; } .home-photo-center { top: 35.5vh; left: 52vw; width: 33vw; } .home-actions { top: 20vh; right: 4vw; gap: .6rem; } .home-actions a { width: 8.8rem; height: 2.85rem; border-radius: .75rem; font-size: .92rem; gap: .45rem; } .home-about { right: 10vw; bottom: 8vh; width: 9.8rem; padding: .8rem; } .home-about h2 { font-size: 1.28rem; } .home-about-grid { gap: 1rem; font-size: .66rem; } .home-about p { font-size: .58rem; line-height: 1.45; } .home-barcode { right: 5vw; bottom: 3.7vh; width: 4rem; height: 2.2rem; } .home-barcode::after { font-size: .48rem; } .home-pager { bottom: 3.8vh; } }
   </style>
   <style>
     /* 谢幺幺：中文标题与四段竖版视频均保留充足的字距、行距和留白。 */
@@ -165,19 +166,22 @@
   <nav class="nav"><a class="mark impact" href="#home">HYX ✦</a><div class="nav-links"><a href="#work">精选项目</a><a href="#lab">AI 实验室</a><a href="#about">关于我</a></div></nav>
   <main>
 <section id="home" class="hero-new">
-      <div class="hero-photo"><img src="assets/portrait.jpg" alt="胡宇萱"></div>
-      <div class="hero-info">
-        <p class="eyebrow">PORTFOLIO · 2026</p>
-        <h1>胡宇萱</h1>
-        <p class="hero-sub">AIGC 内容 · AI Agent · 视觉叙事</p>
-        <ul class="hero-meta">
-          <li><b>性别</b><span>女</span></li>
-          <li><b>年龄</b><span>21 岁</span></li>
-          <li><b>最高学历</b><span>本科（27 届）</span></li>
-          <li><b>毕业院校</b><span>南昌大学 · 广播电视学</span></li>
-          <li><b>电话</b><span>18170056289</span></li>
-          <li><b>邮箱</b><span>2975068538@qq.com</span></li>
-        </ul>
+      <h1>PORTFOLIO</h1>
+      <p class="hero-sub-title">AIGC 内容 · AI Agent · 视觉叙事</p>
+      <div class="hero-row">
+        <div class="hero-photo"><img src="assets/portrait.jpg" alt="胡宇萱"></div>
+        <div class="hero-info">
+          <h2>胡宇萱</h2>
+          <p class="hero-tagline">女 · 21 岁 · 南昌大学广播电视学（27 届）</p>
+          <ul class="hero-meta">
+            <li><b>性别</b><span>女</span></li>
+            <li><b>年龄</b><span>21 岁</span></li>
+            <li><b>最高学历</b><span>本科（27 届）</span></li>
+            <li><b>毕业院校</b><span>南昌大学 · 广播电视学</span></li>
+            <li><b>电话</b><span>18170056289</span></li>
+            <li><b>邮箱</b><span>2975068538@qq.com</span></li>
+          </ul>
+        </div>
       </div>
     </section>
     <div class="ticker"><span>AIGC CONTENT ✦ AI AGENT ✦ CONTENT STRATEGY ✦ VISUAL STORYTELLING ✦ AIGC CONTENT ✦ AI AGENT ✦ CONTENT STRATEGY ✦ VISUAL STORYTELLING ✦ </span></div>
